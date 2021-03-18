@@ -22,18 +22,21 @@ class TaskRepository: BaseRepository() {
         return flow {
             taskDao.getAll().onStart {
                 emit(State.Loading)
-            }
-
-                .collect {
+            }.collect {
+                if (it.isNotEmpty()) {
                     emit(State.Loaded(it))
+                } else {
+                    emit(State.Empty)
                 }
+
+            }
         }.catch {
             emit(State.LoadingFailed(1))
         }.flowOn(Dispatchers.IO)
 
     }
 
-    suspend fun update(task: Task){
+    suspend fun update(task: Task) {
         taskDao.update(task)
     }
 
@@ -41,7 +44,6 @@ class TaskRepository: BaseRepository() {
     suspend fun delete(task: Task) {
         taskDao.delete(task)
     }
-
 
 
 }

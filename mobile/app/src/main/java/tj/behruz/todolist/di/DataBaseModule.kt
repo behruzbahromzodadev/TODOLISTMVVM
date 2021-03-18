@@ -12,7 +12,6 @@ import javax.inject.Singleton
 class DataBaseModule(application: Application) {
 
     private val taskDataBase: TaskDataBase = Room.databaseBuilder(application.applicationContext, TaskDataBase::class.java, "task").fallbackToDestructiveMigration().allowMainThreadQueries().build()
-
     @Singleton
     @Provides
     internal fun providesRoomDatabase(): TaskDataBase {
