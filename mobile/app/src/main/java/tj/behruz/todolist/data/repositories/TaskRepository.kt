@@ -1,5 +1,8 @@
 package tj.behruz.todolist.data.repositories
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import tj.behruz.todolist.data.State
 import tj.behruz.todolist.database.dao.TaskDao
 import tj.behruz.todolist.database.entities.Task
 import tj.behruz.todolist.di.BaseRepository
@@ -14,7 +17,35 @@ class TaskRepository: BaseRepository() {
         taskDao.insert(task)
     }
 
+    suspend fun getAll(): Flow<State> {
+
+        return flow {
+            taskDao.getAll().onStart {
+                emit(State.Loading)
+            }
+
+                .collect {
+                    emit(State.Loaded(it))
+                }
+        }.catch {
+            emit(State.LoadingFailed(1))
+        }.flowOn(Dispatchers.IO)
+
+    }
+
+    suspend fun update(task: Task){
+        taskDao.update(task)
+    }
+
+
+    suspend fun delete(task: Task) {
+        taskDao.delete(task)
+    }
 
 
 
 }
+
+
+
+
