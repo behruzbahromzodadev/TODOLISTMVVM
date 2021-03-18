@@ -8,7 +8,6 @@ import javax.inject.Singleton
 @Component(modules = [DataBaseModule::class])
 interface RepositoryInjector {
 
-
     fun inject(taskRepository: TaskRepository)
 
     @Component.Builder

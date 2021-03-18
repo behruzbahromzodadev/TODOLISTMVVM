@@ -59,7 +59,6 @@ class AddTaskFragment(): Fragment() {
         }
     }
 
-
 }
 
 

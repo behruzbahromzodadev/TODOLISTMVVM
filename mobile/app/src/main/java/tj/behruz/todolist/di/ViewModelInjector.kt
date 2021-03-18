@@ -7,9 +7,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [RepositoryModule::class])
 interface ViewModelInjector {
-
     fun inject(taskViewModel: TaskViewModel)
-
     @Component.Builder
     interface Builder {
         fun build(): ViewModelInjector
