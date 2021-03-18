@@ -13,7 +13,6 @@ class HomeActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
-        viewModel.insert(Task(1,"","",false,""))
     }
 
 

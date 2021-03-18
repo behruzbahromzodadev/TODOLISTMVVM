@@ -11,14 +11,8 @@ import javax.inject.Singleton
 @Module
 class DataBaseModule(application: Application) {
 
-    private val taskDataBase :TaskDataBase
-    init {
-        taskDataBase = Room.databaseBuilder(
-            application.applicationContext,
-            TaskDataBase::class.java,
-            "task"
-        ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
-    }
+    private val taskDataBase: TaskDataBase = Room.databaseBuilder(application.applicationContext, TaskDataBase::class.java, "task").fallbackToDestructiveMigration().allowMainThreadQueries().build()
+
     @Singleton
     @Provides
     internal fun providesRoomDatabase(): TaskDataBase {
@@ -30,9 +24,6 @@ class DataBaseModule(application: Application) {
     internal fun providesTaskDao(taskDataBase: TaskDataBase): TaskDao {
         return taskDataBase.taskDao()
     }
-
-
-
 
 
 }
